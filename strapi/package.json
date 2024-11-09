@@ -24,6 +24,7 @@
     "@strapi/strapi": "5.0.1",
     "better-sqlite3": "9.4.3",
     "patch-package": "^8.0.0",
+    "pg": "^8.13.1",
     "pluralize": "^8.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -35,7 +36,7 @@
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "LAUNCHPAD"
+    "uuid": "LAUNCHPAD-LOCAL-6eabab92-d156-4e61-b497-5df373f284e4"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
