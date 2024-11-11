@@ -33,14 +33,14 @@
     "uuid": "^10.0.0"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "devvc-cyber"
   },
   "strapi": {
     "uuid": "LAUNCHPAD-LOCAL-6eabab92-d156-4e61-b497-5df373f284e4"
   },
   "engines": {
-    "node": ">=18.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
+    "node": "^20",
+    "npm": "^10"
   },
   "license": "MIT"
 }
