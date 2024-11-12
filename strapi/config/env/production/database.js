@@ -16,10 +16,13 @@ export default ({ env }) => ({
       user,
       password,
       ssl: {
-        ca: env('DATABASE_CA'),
         rejectUnauthorized: false
       },
     },
+    pool: {
+      min: 0,
+      max: 22,
+    },    
     debug: false,
   },
 });
