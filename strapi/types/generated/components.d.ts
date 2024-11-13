@@ -232,38 +232,6 @@ export interface ItemsGraphCardTopItems extends Struct.ComponentSchema {
   };
 }
 
-export interface GlobalNavbar extends Struct.ComponentSchema {
-  collectionName: 'components_global_navbars';
-  info: {
-    displayName: 'Navbar';
-    icon: 'bold';
-  };
-  attributes: {
-    logo: Schema.Attribute.Relation<'oneToOne', 'api::logo.logo'>;
-    left_navbar_items: Schema.Attribute.Component<'shared.link', true>;
-    right_navbar_items: Schema.Attribute.Component<'shared.link', true>;
-  };
-}
-
-export interface GlobalFooter extends Struct.ComponentSchema {
-  collectionName: 'components_global_footers';
-  info: {
-    displayName: 'Footer';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    logo: Schema.Attribute.Relation<'oneToOne', 'api::logo.logo'>;
-    description: Schema.Attribute.String;
-    copyright: Schema.Attribute.String;
-    designed_developed_by: Schema.Attribute.String;
-    built_with: Schema.Attribute.String;
-    internal_links: Schema.Attribute.Component<'shared.link', true>;
-    policy_links: Schema.Attribute.Component<'shared.link', true>;
-    social_media_links: Schema.Attribute.Component<'shared.link', true>;
-  };
-}
-
 export interface DynamicZoneTestimonials extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_testimonials';
   info: {
@@ -444,6 +412,38 @@ export interface DynamicZoneBrands extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalNavbar extends Struct.ComponentSchema {
+  collectionName: 'components_global_navbars';
+  info: {
+    displayName: 'Navbar';
+    icon: 'bold';
+  };
+  attributes: {
+    logo: Schema.Attribute.Relation<'oneToOne', 'api::logo.logo'>;
+    left_navbar_items: Schema.Attribute.Component<'shared.link', true>;
+    right_navbar_items: Schema.Attribute.Component<'shared.link', true>;
+  };
+}
+
+export interface GlobalFooter extends Struct.ComponentSchema {
+  collectionName: 'components_global_footers';
+  info: {
+    displayName: 'Footer';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    logo: Schema.Attribute.Relation<'oneToOne', 'api::logo.logo'>;
+    description: Schema.Attribute.String;
+    copyright: Schema.Attribute.String;
+    designed_developed_by: Schema.Attribute.String;
+    built_with: Schema.Attribute.String;
+    internal_links: Schema.Attribute.Component<'shared.link', true>;
+    policy_links: Schema.Attribute.Component<'shared.link', true>;
+    social_media_links: Schema.Attribute.Component<'shared.link', true>;
+  };
+}
+
 export interface CardsSocialMediaCard extends Struct.ComponentSchema {
   collectionName: 'components_cards_social_media_cards';
   info: {
@@ -522,8 +522,6 @@ declare module '@strapi/strapi' {
       'items.left-navbar-items': ItemsLeftNavbarItems;
       'items.input': ItemsInput;
       'items.graph-card-top-items': ItemsGraphCardTopItems;
-      'global.navbar': GlobalNavbar;
-      'global.footer': GlobalFooter;
       'dynamic-zone.testimonials': DynamicZoneTestimonials;
       'dynamic-zone.related-products': DynamicZoneRelatedProducts;
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
@@ -536,6 +534,8 @@ declare module '@strapi/strapi' {
       'dynamic-zone.faq': DynamicZoneFaq;
       'dynamic-zone.cta': DynamicZoneCta;
       'dynamic-zone.brands': DynamicZoneBrands;
+      'global.navbar': GlobalNavbar;
+      'global.footer': GlobalFooter;
       'cards.social-media-card': CardsSocialMediaCard;
       'cards.ray-card': CardsRayCard;
       'cards.graph-card': CardsGraphCard;
