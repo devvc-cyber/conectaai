@@ -16,7 +16,7 @@ export default ({ env }) => ({
       user,
       password,
       ssl: {
-        ca: env('DATABASE_CA'),
+        key: env('DATABASE_CA'),
       },
     },
     pool: {
