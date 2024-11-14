@@ -16,7 +16,7 @@ export default ({ env }) => ({
       user,
       password,
       ssl: {
-        ca: fs.readFileSync('./config/env/production/ca-certificate.crt').toString(),      
+        ca: fs.readFileSync('./config/env/production/ca-certificat.crt').toString(),      
       },
     },
     debug: false,

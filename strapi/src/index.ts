@@ -7,7 +7,10 @@ export default {
    *
    * This gives you an opportunity to extend code.
    */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register(/* { strapi }: { strapi: Core.Strapi } */) {
+    console.log(process.env.NODE_ENV)
+    console.log(strapi.config.database.connection)
+  },
 
   /**
    * An asynchronous bootstrap function that runs before
