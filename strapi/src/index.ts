@@ -8,8 +8,8 @@ export default {
    * This gives you an opportunity to extend code.
    */
   register(/* { strapi }: { strapi: Core.Strapi } */) {
-    console.log(process.env.NODE_ENV)
-    console.log(strapi.config.database.connection)
+    console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
+    console.log(`DATABASE_CONNECTION: ${JSON.stringify(strapi.config.database.connection)}`)
   },
 
   /**
