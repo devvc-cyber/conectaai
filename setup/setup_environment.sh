@@ -1,29 +1,41 @@
 #!/bin/bash
 
 # Atualizar o sistema
-sudo yum update -y
+sudo dnf update -y
 
 # Instalar pacotes necessários
-sudo yum install -y yum-utils curl
+sudo dnf install -y curl
+sudo dnf -y install dnf-plugins-core
+
+sudo dnf remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
 
 # Adicionar repositório Docker
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
 # Instalar Docker
-sudo yum install -y docker-ce docker-ce-cli containerd.io
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Iniciar e habilitar o Docker
-sudo systemctl start docker
-sudo systemctl enable docker
+sudo systemctl enable --now docker
+
+# Test docker 
+sudo docker run hello-world
 
 # Adicionar o usuário atual ao grupo docker (para evitar uso do sudo ao executar comandos Docker)
 sudo usermod -aG docker $(whoami)
 
 # Baixar a versão estável mais recente do Docker Compose
-sudo curl -L "https://github.com/docker/compose/releases/download/2.22.24/docker-compose-linux-$(uname -m)" -o /usr/local/bin/docker-compose
+#sudo curl -L "https://github.com/docker/compose/releases/download/2.22.24/docker-compose-linux-$(uname -m)" -o /usr/local/bin/docker-compose
 
 # Aplicar permissões executáveis ao binário
-sudo chmod +x /usr/local/bin/docker-compose
+#sudo chmod +x /usr/local/bin/docker-compose
 
 # Verificar as instalações
 docker --version
