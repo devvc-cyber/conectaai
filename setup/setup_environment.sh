@@ -39,6 +39,6 @@ sudo usermod -aG docker $(whoami)
 
 # Verificar as instalações
 docker --version
-docker-compose --version
+docker compose version
 
 echo "Instalação concluída. Por favor, faça logout e login novamente para que as alterações de grupo tenham efeito."
