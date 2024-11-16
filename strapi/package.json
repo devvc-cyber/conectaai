@@ -9,8 +9,7 @@
     "build": "strapi build",
     "strapi": "strapi",
     "deploy": "strapi deploy",
-    "seed": "strapi import -f ./data/export_20241002155953.tar.gz",
-    "postinstall": "node ./scripts/updateUuid.js"
+    "seed": "strapi import -f ./data/export_20241002155953.tar.gz"
   },
   "devDependencies": {
     "@types/node": "^20",
