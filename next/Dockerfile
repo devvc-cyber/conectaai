@@ -24,7 +24,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 # 3. Production image, copy all the files and run next
 FROM base AS runner
@@ -34,7 +34,6 @@ ENV NODE_ENV=production
 ENV WEBSITE_URL=http://localhost:3000
 ENV PORT=3000
 ENV NEXT_PUBLIC_API_URL=http://localhost:1337
-ENV PREVIEW_SECRET=FG8lU1X@b&LUKFT1==
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
