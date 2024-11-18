@@ -38,6 +38,7 @@ sudo usermod -aG docker $(whoami)
 #sudo chmod +x /usr/local/bin/docker-compose
 
 # Verificar as instalações
+docker swarm init
 docker --version
 docker compose version
 

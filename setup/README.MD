@@ -3,9 +3,13 @@
 sudo dnf install git
 git config --global user.name "devvc-cyber"
 git config --global user.email rafael@volvecare.com
-git config --global credential.credentialStore gpg 
+ssh-keygen -t rsa -b 4096 -C "rafael@volvecare.com"
+ssh-keygen -t rsa -b 4096 -C "seuemail@exemplo.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+sudo dnf install epel-release
+xclip -selection clipboard < ~/.ssh/id_ed25519.pub
 
-wget https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.6.0/gcm-linux_amd64.2.6.0.tar.gz
-
+# add ssh key to github
 
 git clone https://github.com/devvc-cyber/conectaai.git
