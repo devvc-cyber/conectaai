@@ -1,4 +1,26 @@
 // import type { Core } from '@strapi/strapi';
+import fs from 'fs';
+import path from 'path';
+
+/**
+ * Load environment variables from Docker secrets.
+ */
+function loadEnvFromDockerSecrets() {
+  const secretsPath = '/run/secrets';
+
+  try {
+    const files = fs.readdirSync(secretsPath);
+
+    files.forEach((file) => {
+      const secretPath = path.join(secretsPath, file);
+      const secretValue = fs.readFileSync(secretPath, 'utf8').trim();
+      const envVarName = file.toUpperCase().replace('_FILE', '');
+      process.env[envVarName] = secretValue;
+    });
+  } catch (error) {
+    console.error('Erro ao carregar Docker secrets:', error);
+  }
+}
 
 export default {
   /**
@@ -8,8 +30,12 @@ export default {
    * This gives you an opportunity to extend code.
    */
   register(/* { strapi }: { strapi: Core.Strapi } */) {
-    console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
-    console.log(`DATABASE_CONNECTION: ${JSON.stringify(strapi.config.database.connection)}`)
+    if (process.env.NODE_ENV === 'production') {
+      loadEnvFromDockerSecrets();
+    }
+
+    console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+    console.log(`DATABASE_CONNECTION: ${JSON.stringify(strapi.config.database.connection)}`);
   },
 
   /**
