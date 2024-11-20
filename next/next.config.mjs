@@ -4,6 +4,7 @@ const nextConfig = {
     remotePatterns: [{ hostname: process.env.IMAGE_HOSTNAME || "localhost" }],
   },
   pageExtensions: ["ts", "tsx"],
+  output: "standalone",
   async redirects() {
     let redirections = [];
     try {
