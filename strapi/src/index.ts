@@ -9,14 +9,18 @@ function loadEnvFromDockerSecrets() {
   const secretsPath = '/run/secrets';
 
   try {
-    const files = fs.readdirSync(secretsPath);
+    if (fs.existsSync(secretsPath)) {
+      const files = fs.readdirSync(secretsPath);
 
-    files.forEach((file) => {
-      const secretPath = path.join(secretsPath, file);
-      const secretValue = fs.readFileSync(secretPath, 'utf8').trim();
-      const envVarName = file.toUpperCase().replace('_FILE', '');
-      process.env[envVarName] = secretValue;
-    });
+      files.forEach((file) => {
+        const secretPath = path.join(secretsPath, file);
+        const secretValue = fs.readFileSync(secretPath, 'utf8').trim();
+        const envVarName = file.toUpperCase().replace('_FILE', '');
+        process.env[envVarName] = secretValue;
+      });
+    } else {
+      console.warn(`Secrets path ${secretsPath} does not exist. Skipping Docker secrets loading.`);
+    }
   } catch (error) {
     console.error('Erro ao carregar Docker secrets:', error);
   }
@@ -30,12 +34,15 @@ export default {
    * This gives you an opportunity to extend code.
    */
   register(/* { strapi }: { strapi: Core.Strapi } */) {
+    // Load environment variables from Docker secrets only in production
     if (process.env.NODE_ENV === 'production') {
       loadEnvFromDockerSecrets();
     }
 
     console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-    console.log(`DATABASE_CONNECTION: ${JSON.stringify(strapi.config.database.connection)}`);
+    if (process.env.NODE_ENV === 'production') {
+      console.log(`DATABASE_CONNECTION: ${process.env.DATABASE_CONNECTION ? 'Loaded' : 'Not Loaded'}`);
+    }
   },
 
   /**

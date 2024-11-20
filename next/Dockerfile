@@ -1,6 +1,10 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
+RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev git > /dev/null 2>&1
+
+ENV NODE_ENV=production
+
 
 # 1. Install dependencies only when needed
 FROM base AS deps
@@ -11,12 +15,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN yarn config set network-timeout 600000 -g && yarn install --production
 
 # 2. Rebuild the source code only when needed
 FROM base AS builder
@@ -30,10 +29,10 @@ RUN yarn build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV=production
-ENV WEBSITE_URL=http://localhost:3000
-ENV PORT=3000
-ENV NEXT_PUBLIC_API_URL=http://localhost:1337
+#ENV NODE_ENV=production
+#ENV WEBSITE_URL=http://localhost:3000
+#ENV PORT=3000
+#ENV NEXT_PUBLIC_API_URL=http://localhost:1337
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
@@ -49,6 +48,6 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT=3000
+#ENV PORT=3000
 
 CMD HOSTNAME="0.0.0.0" node server.js
