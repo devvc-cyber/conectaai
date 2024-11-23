@@ -30,6 +30,7 @@ declare -A SECRETS=(
   ["jwt_secret"]=32
   ["strapi_admin_client_preview_secret"]=32
   ["postgres_password"]=16
+  ["pgadmin_password"]=16
 )
 
 # Gerar cada segredo
@@ -37,6 +38,9 @@ for secret in "${!SECRETS[@]}"; do
   generate_secret "$secret" "${SECRETS[$secret]}"
 done
 
+echo "strapi" > $SECRETS_DIR/postgres_user
+echo "strapidb" > $SECRETS_DIR/postgres_db
+echo "rafael@volvecare.com" > $SECRETS_DIR/pgadmin_email
 
 # Ajustar permissões
 echo "Ajustando permissões dos arquivos de segredos..."
